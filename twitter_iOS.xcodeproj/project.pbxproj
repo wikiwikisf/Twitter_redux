@@ -16,6 +16,7 @@
 		F12423371BC08D8D0047ADAD /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12423361BC08D8D0047ADAD /* TwitterClient.swift */; settings = {ASSET_TAGS = (); }; };
 		F12423391BC08E690047ADAD /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12423381BC08E690047ADAD /* Tweet.swift */; settings = {ASSET_TAGS = (); }; };
 		F124233B1BC08E880047ADAD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F124233A1BC08E880047ADAD /* User.swift */; settings = {ASSET_TAGS = (); }; };
+		F15901361BC0FDAD00C7FE21 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = F15901351BC0FDAD00C7FE21 /* Credentials.plist */; settings = {ASSET_TAGS = (); }; };
 		F1FC4A5A1BC0DB2E00996289 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC4A591BC0DB2E00996289 /* HomeTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		F12423361BC08D8D0047ADAD /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		F12423381BC08E690047ADAD /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		F124233A1BC08E880047ADAD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F15901351BC0FDAD00C7FE21 /* Credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		F1FC4A591BC0DB2E00996289 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 				F110BD551BC07A1700BFD87B /* LaunchScreen.storyboard */,
 				F110BD581BC07A1700BFD87B /* Info.plist */,
 				F12423301BC08CC10047ADAD /* twitter_iOS-Bridging-Header.h */,
+				F15901351BC0FDAD00C7FE21 /* Credentials.plist */,
 			);
 			path = twitter_iOS;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F110BD571BC07A1700BFD87B /* LaunchScreen.storyboard in Resources */,
+				F15901361BC0FDAD00C7FE21 /* Credentials.plist in Resources */,
 				F110BD541BC07A1700BFD87B /* Assets.xcassets in Resources */,
 				F110BD521BC07A1700BFD87B /* Main.storyboard in Resources */,
 			);

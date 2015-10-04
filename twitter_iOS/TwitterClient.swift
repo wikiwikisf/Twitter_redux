@@ -8,12 +8,29 @@
 
 import UIKit
 
-let twitterConsumerKey = "VM7uCFT5MfCyy94JVu6TW9svd"
-let twitterConsumerSecret = "qS4Yc8Y0ZKSG2oogKwtgQi5aSV6kVw4cc9QnbrsR2v0m4xztB4"
+let credentials = Credentials.defaultCredentials
+
+struct Credentials {
+  static let defaultCredentialsFile = "Credentials"
+  static let defaultCredentials     = Credentials.loadFromPropertyListNamed(defaultCredentialsFile)
+  
+  let consumerKey: String
+  let consumerSecret: String
+  
+  private static func loadFromPropertyListNamed(name: String) -> Credentials {
+    let path           = NSBundle.mainBundle().pathForResource(name, ofType: "plist")!
+    let dictionary     = NSDictionary(contentsOfFile: path)!
+    let consumerKey    = dictionary["ConsumerKey"] as! String
+    let consumerSecret = dictionary["ConsumerSecret"] as! String
+    
+    return Credentials(consumerKey: consumerKey, consumerSecret: consumerSecret)
+  }
+}
+
 let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1RequestOperationManager {
-  static let instance = TwitterClient(baseURL: twitterBaseURL, consumerKey: twitterConsumerKey, consumerSecret: twitterConsumerSecret)
+  static let instance = TwitterClient(baseURL: twitterBaseURL, consumerKey: credentials.consumerKey, consumerSecret: credentials.consumerSecret)
   
   // Callback when login is successful
   var loginCompletion: ((user: User?, error: NSError?) -> ())?
