@@ -25,9 +25,17 @@ class TweetTableViewCell: UITableViewCell {
         profileImageView.setImageWithURL(NSURL(string: url))
       }
       userNameLabel.text = tweet.user?.name
-      screenNameLabel.text = tweet.user?.screenName
+      let screenNameText = tweet.user?.screenName
+      screenNameLabel.text = "@\(screenNameText!)"
       tweetTextLabel.text = tweet.text
       dateLabel.text = formatTimeElapsed(tweet.createdAt!)
+      
+      if tweet.retweeted {
+        retweetedImageView.hidden = false
+        retweetedByLabel.hidden = false
+        let username = tweet.user?.name
+        retweetedByLabel.text = "\(username!) Retweeted"
+      }
     }
   }
   
@@ -43,6 +51,9 @@ class TweetTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
+    
+    profileImageView.layer.cornerRadius = 4
+    profileImageView.clipsToBounds = true
   }
   
   override func setSelected(selected: Bool, animated: Bool) {

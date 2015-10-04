@@ -36,9 +36,8 @@ class HomeTableViewController: UITableViewController {
     
     navigationItem.title = "Home"
     
-    //tableView.registerClass(TweetTableViewCell.self, forCellReuseIdentifier: tweetCellIdentifier)
-    //tableView.rowHeight = UITableViewAutomaticDimension
-    //tableView.estimatedRowHeight = 150
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 200
     
     // TODO: progress bar?
     
@@ -54,10 +53,9 @@ class HomeTableViewController: UITableViewController {
   }
   
   internal func renderHomeTimeline() {
-    TwitterClient.instance.getHomeTimeline(nil) { (tweets: [Tweet]?, error: NSError?) -> () in
+    TwitterClient.instance.getHomeTimeline(["contributor_details":true]) { (tweets: [Tweet]?, error: NSError?) -> () in
       // If get home timeline successful then render the home tweets
       if (tweets != nil) {
-        print("render tweets!")
         self.homeTweets = tweets
         self.tableView.reloadData()
       } else {

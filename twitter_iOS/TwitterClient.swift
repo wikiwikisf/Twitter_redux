@@ -81,9 +81,9 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
       let tweets = Tweet.assembleTweets(response as! [NSDictionary])
       completion(tweets: tweets, error: nil)
       
-      /*for tweet in tweets {
-        print("text: \(tweet.text), created: \(tweet.createdAt)")
-      }*/
+      for tweet in tweets {
+        print("text: \(tweet.text), isRetweet: \(tweet.retweeted), date: \(tweet.createdAt)")
+      }
       
       }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         print("error getting the home timeline")

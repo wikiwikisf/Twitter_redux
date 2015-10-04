@@ -13,6 +13,7 @@ class Tweet: NSObject {
   var text: String?
   var createdAtString: String?
   var createdAt: NSDate?
+  var retweeted: Bool
   
   init(dictionary: NSDictionary) {
     user = User(dictionary: dictionary["user"] as! NSDictionary)
@@ -22,6 +23,9 @@ class Tweet: NSObject {
     let formatter = NSDateFormatter()
     formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
     createdAt = formatter.dateFromString(createdAtString!)
+    
+    retweeted = (dictionary["retweeted_status"] != nil) ? true : false
+    
   }
   
   internal static func assembleTweets(items: [NSDictionary]) -> [Tweet] {
