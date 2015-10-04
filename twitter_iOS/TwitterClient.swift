@@ -55,7 +55,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
       print("successfully retrieved access token")
       self.requestSerializer.saveAccessToken(accessToken)
       
-      TwitterClient.instance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      // TODO: move to function
+      self.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         print("user: \(response)")
         let user = User(dictionary: response as! NSDictionary)
         User.currentUser = user
@@ -69,5 +70,25 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         print("failed to get access token")
         self.loginCompletion?(user: nil, error: error)
     }
+  }
+  
+  func getHomeTimeline(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+    GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      let dictionary = response as! [NSDictionary]
+      print("received tweets ", dictionary.count)
+      print("first tweet: \(response[0])")
+      
+      let tweets = Tweet.assembleTweets(response as! [NSDictionary])
+      completion(tweets: tweets, error: nil)
+      
+      /*for tweet in tweets {
+        print("text: \(tweet.text), created: \(tweet.createdAt)")
+      }*/
+      
+      }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        print("error getting the home timeline")
+        completion(tweets: nil, error: error)
+    })
+    
   }
 }

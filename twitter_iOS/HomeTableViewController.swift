@@ -10,13 +10,15 @@ import UIKit
 
 class HomeTableViewController: UITableViewController {
   
+  let tweetCellIdentifier = "TweetCell"
+  
+  var homeTweets: [Tweet]!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
-    
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     
     // Setup logout button in navigation bar
     let logoutButton = UIBarButtonItem()
@@ -24,6 +26,44 @@ class HomeTableViewController: UITableViewController {
     logoutButton.action = Selector("logout")
     logoutButton.target = self
     navigationItem.leftBarButtonItem = logoutButton
+    
+    // Setup New button in navigation bar
+    let newButton = UIBarButtonItem()
+    newButton.title = "New"
+    newButton.action = Selector("createNewTweet")
+    newButton.target = self
+    navigationItem.rightBarButtonItem = newButton
+    
+    navigationItem.title = "Home"
+    
+    //tableView.registerClass(TweetTableViewCell.self, forCellReuseIdentifier: tweetCellIdentifier)
+    //tableView.rowHeight = UITableViewAutomaticDimension
+    //tableView.estimatedRowHeight = 150
+    
+    // TODO: progress bar?
+    
+    renderHomeTimeline()
+  }
+  
+  internal func logout() {
+    User.currentUser?.logout()
+  }
+  
+  internal func createNewTweet() {
+    // TODO
+  }
+  
+  internal func renderHomeTimeline() {
+    TwitterClient.instance.getHomeTimeline(nil) { (tweets: [Tweet]?, error: NSError?) -> () in
+      // If get home timeline successful then render the home tweets
+      if (tweets != nil) {
+        print("render tweets!")
+        self.homeTweets = tweets
+        self.tableView.reloadData()
+      } else {
+        // Handle error
+      }
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -32,28 +72,20 @@ class HomeTableViewController: UITableViewController {
   }
   
   // MARK: - Table view data source
-  
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+    let rows = (homeTweets != nil) ? homeTweets.count : 0
+    return rows
   }
   
-  internal func logout() {
-    User.currentUser?.logout()
-  }
-  
-  /*
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-  let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-  
-  // Configure the cell...
-  
-  return cell
+    let cell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
+    cell.tweet = homeTweets[indexPath.row]
+    return cell
   }
-  */
   
   /*
   // Override to support conditional editing of the table view.

@@ -19,8 +19,21 @@ class Tweet: NSObject {
     text = dictionary["text"] as? String
     createdAtString = dictionary["created_at"] as? String
     
-    var formatter = NSDateFormatter()
+    let formatter = NSDateFormatter()
     formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
     createdAt = formatter.dateFromString(createdAtString!)
+  }
+  
+  internal static func assembleTweets(items: [NSDictionary]) -> [Tweet] {
+    print("assembling tweets from \(items.count)")
+    
+    var tweets = [Tweet]()
+    
+    for item in items {
+      let tweet = Tweet(dictionary: item)
+      tweets.append(tweet)
+    }
+    
+    return tweets
   }
 }
