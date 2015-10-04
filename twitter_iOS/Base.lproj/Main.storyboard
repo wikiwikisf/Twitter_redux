@@ -89,20 +89,20 @@
                                                 <constraint firstAttribute="width" constant="13" id="XQk-WW-BwY"/>
                                             </constraints>
                                         </imageView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Anita Borg Retweeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggN-jz-8UX">
-                                            <rect key="frame" x="60" y="8" width="532" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="751" misplaced="YES" text="1/14/14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5k4-Jh-TvJ">
-                                            <rect key="frame" x="544" y="32" width="43.5" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="751" text="1/14/14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5k4-Jh-TvJ">
+                                            <rect key="frame" x="544" y="29" width="43.5" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="@MikeRooney" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3I-Pf-5Ea">
                                             <rect key="frame" x="187" y="29" width="80" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Anita Borg Retweeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggN-jz-8UX">
+                                            <rect key="frame" x="60" y="8" width="532" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -134,6 +134,7 @@
                                         <constraint firstItem="jP2-vs-QzJ" firstAttribute="top" secondItem="iyy-lp-k5C" secondAttribute="bottom" constant="6" id="jt2-CC-5Ir"/>
                                         <constraint firstItem="2NW-Oi-Jpn" firstAttribute="leading" secondItem="JOX-S0-cjl" secondAttribute="trailing" constant="8" id="nFp-RR-xNu"/>
                                         <constraint firstItem="ggN-jz-8UX" firstAttribute="leading" secondItem="ttu-Z8-pS6" secondAttribute="trailing" constant="8" id="nZC-w3-llQ"/>
+                                        <constraint firstItem="5k4-Jh-TvJ" firstAttribute="top" secondItem="j3I-Pf-5Ea" secondAttribute="top" id="nmD-qi-yKB"/>
                                         <constraint firstItem="tYH-Jm-Pzz" firstAttribute="leading" secondItem="9iE-Qd-d16" secondAttribute="trailing" constant="26" id="r9g-Gk-M7j"/>
                                         <constraint firstItem="2NW-Oi-Jpn" firstAttribute="leading" secondItem="ggN-jz-8UX" secondAttribute="leading" id="u0L-XZ-pGB"/>
                                         <constraint firstItem="2NW-Oi-Jpn" firstAttribute="top" secondItem="JOX-S0-cjl" secondAttribute="top" id="zNd-ld-wPH"/>
@@ -142,6 +143,9 @@
                                 <connections>
                                     <outlet property="dateLabel" destination="5k4-Jh-TvJ" id="l7U-GO-Z8M"/>
                                     <outlet property="profileImageView" destination="JOX-S0-cjl" id="SYE-Td-aHL"/>
+                                    <outlet property="retweetByTopConstraint" destination="SKj-HL-KFT" id="gCZ-Jn-joL"/>
+                                    <outlet property="retweetImageBottomConstraint" destination="cPy-hz-z4C" id="wMP-OY-E7V"/>
+                                    <outlet property="retweetImageTopConstraint" destination="7oh-vR-5X3" id="HcZ-px-o3u"/>
                                     <outlet property="retweetedByLabel" destination="ggN-jz-8UX" id="C7T-wi-Vae"/>
                                     <outlet property="retweetedImageView" destination="ttu-Z8-pS6" id="Y0i-zX-fYH"/>
                                     <outlet property="screenNameLabel" destination="j3I-Pf-5Ea" id="MQN-Es-y09"/>

@@ -19,6 +19,10 @@ class TweetTableViewCell: UITableViewCell {
   @IBOutlet weak var retweetedImageView: UIImageView!
   @IBOutlet weak var retweetedByLabel: UILabel!
   
+  @IBOutlet weak var retweetImageBottomConstraint: NSLayoutConstraint!
+  @IBOutlet weak var retweetImageTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var retweetByTopConstraint: NSLayoutConstraint!
+  
   var tweet: Tweet! {
     didSet {
       if let url = tweet.user?.profileImageURL {
@@ -30,11 +34,16 @@ class TweetTableViewCell: UITableViewCell {
       tweetTextLabel.text = tweet.text
       dateLabel.text = formatTimeElapsed(tweet.createdAt!)
       
+      
+      retweetedImageView.hidden = !tweet.retweeted
+      retweetedByLabel.hidden = !tweet.retweeted
       if tweet.retweeted {
-        retweetedImageView.hidden = false
-        retweetedByLabel.hidden = false
         let username = tweet.user?.name
         retweetedByLabel.text = "\(username!) Retweeted"
+      } else {
+        retweetImageBottomConstraint.constant = 0.0
+        retweetImageTopConstraint.constant = 0.0
+        retweetByTopConstraint.constant = 0.0
       }
     }
   }
