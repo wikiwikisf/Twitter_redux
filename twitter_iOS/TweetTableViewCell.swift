@@ -40,6 +40,9 @@ class TweetTableViewCell: UITableViewCell {
       if tweet.retweeted {
         let username = tweet.user?.name
         retweetedByLabel.text = "\(username!) Retweeted"
+        retweetImageBottomConstraint.constant = 8.0
+        retweetImageTopConstraint.constant = 8.0
+        retweetByTopConstraint.constant = 8.0
       } else {
         retweetImageBottomConstraint.constant = 0.0
         retweetImageTopConstraint.constant = 0.0

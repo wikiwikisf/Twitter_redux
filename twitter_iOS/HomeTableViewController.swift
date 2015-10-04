@@ -39,8 +39,10 @@ class HomeTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 200
     
-    // TODO: progress bar?
+    refreshControl = UIRefreshControl()
+    refreshControl?.addTarget(self, action: "renderHomeTimeline", forControlEvents: UIControlEvents.ValueChanged)
     
+    // TODO: progress bar
     renderHomeTimeline()
   }
   
@@ -55,12 +57,15 @@ class HomeTableViewController: UITableViewController {
   internal func renderHomeTimeline() {
     TwitterClient.instance.getHomeTimeline(["contributor_details":true]) { (tweets: [Tweet]?, error: NSError?) -> () in
       // If get home timeline successful then render the home tweets
-      if (tweets != nil) {
-        self.homeTweets = tweets
-        self.tableView.reloadData()
-      } else {
-        // Handle error
-      }
+      dispatch_async(dispatch_get_main_queue(), {
+        if (tweets != nil) {
+          self.homeTweets = tweets
+          self.tableView.reloadData()
+          self.refreshControl?.endRefreshing()
+        } else {
+          // Handle error
+        }
+      })
     }
   }
   
