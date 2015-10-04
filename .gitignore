@@ -28,7 +28,7 @@ xcuserdata
 *.ipa
 
 ## Credentials
-Credentials.plist
+*Credentials.plist
 
 # CocoaPods
 #
