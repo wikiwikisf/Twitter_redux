@@ -28,4 +28,4 @@ Time spent: `25hrs`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Video Walkthrough](twitter_iOS/Twitter-iOS2.gif)
