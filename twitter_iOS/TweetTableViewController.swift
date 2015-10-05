@@ -90,7 +90,9 @@ class TweetTableViewController: UITableViewController {
       cell = countCell
     } else {
       // Render actions
-      cell = tableView.dequeueReusableCellWithIdentifier(actionCellIdentifier, forIndexPath: indexPath) as! ActionTableViewCell
+      let actionCell = tableView.dequeueReusableCellWithIdentifier(actionCellIdentifier, forIndexPath: indexPath) as! ActionTableViewCell
+      actionCell.tweet = currentTweet
+      cell = actionCell
     }
 
     return cell

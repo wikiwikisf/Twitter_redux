@@ -103,6 +103,44 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     })
   }
   
+  func reTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    POST("1.1/statuses/retweet.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      print("retweet successful \(response)")
+      let dictionary = response as! NSDictionary
+      let reTweet = Tweet(dictionary: dictionary)
+      completion(tweet: reTweet, error: nil)
+      }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        print("error posting tweet")
+        completion(tweet: nil, error: error)
+    })
+  }
   
+  func favoriteTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    POST("1.1/favorites/create.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      print("favorite tweet successful \(response)")
+      let dictionary = response as! NSDictionary
+      let favoritedTweet = Tweet(dictionary: dictionary)
+      completion(tweet: favoritedTweet, error: nil)
+      }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        print("error favoriting tweet")
+        completion(tweet: nil, error: error)
+    })
+  }
+  
+  func unFavoriteTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    POST("1.1/favorites/destroy.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      print("unfavorite tweet successful \(response)")
+      let dictionary = response as! NSDictionary
+      let unfavoritedTweet = Tweet(dictionary: dictionary)
+      completion(tweet: unfavoritedTweet, error: nil)
+      }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        print("error unfavoriting tweet")
+        completion(tweet: nil, error: error)
+    })
+  }
+  
+  func replyTweet(status: String, tweetId: Int, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    postTweet(["in_reply_to_status_id": tweetId], completion: completion)
+  }
 
 }

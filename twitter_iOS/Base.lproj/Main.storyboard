@@ -359,6 +359,10 @@
                                         <constraint firstAttribute="bottom" secondItem="DZH-Zp-PeU" secondAttribute="bottom" constant="8" id="tLC-EL-z2Y"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favoriteButton" destination="b9R-qU-cFu" id="ZhV-aK-YtX"/>
+                                    <outlet property="retweetButton" destination="DZH-Zp-PeU" id="9lp-uR-weq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
