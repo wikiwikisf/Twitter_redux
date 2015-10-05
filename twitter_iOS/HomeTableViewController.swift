@@ -30,7 +30,7 @@ class HomeTableViewController: UITableViewController {
     // Setup New button in navigation bar
     let newButton = UIBarButtonItem()
     newButton.title = "New"
-    newButton.action = Selector("createNewTweet")
+    newButton.action = Selector("composeTweet")
     newButton.target = self
     navigationItem.rightBarButtonItem = newButton
     
@@ -50,8 +50,9 @@ class HomeTableViewController: UITableViewController {
     User.currentUser?.logout()
   }
   
-  internal func createNewTweet() {
-    // TODO
+  internal func composeTweet() {
+    // segue to new tweet 
+    performSegueWithIdentifier("newTweetSegue", sender: self)
   }
   
   internal func renderHomeTimeline() {
