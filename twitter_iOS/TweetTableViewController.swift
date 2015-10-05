@@ -15,6 +15,7 @@ class TweetTableViewController: UITableViewController {
   let actionCellIdentifier = "ActionCell"
   
   var currentTweet : Tweet!
+  var numberOfRows : Int = 3
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -66,8 +67,13 @@ class TweetTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // TODO: if the selected tweet has favorites and retweets then 3, else 2
-    return 3
+    if (currentTweet.favoriteCount == 0 && currentTweet.retweetCount == 0) {
+      numberOfRows = 2
+      return numberOfRows
+    } else {
+      numberOfRows = 3
+      return numberOfRows
+    }
   }
   
   
@@ -77,15 +83,16 @@ class TweetTableViewController: UITableViewController {
       let tweetCell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
       tweetCell.tweet = currentTweet
       cell = tweetCell
-      
-      
-    } else if indexPath.row == 1 {
+    } else if indexPath.row == 1 && numberOfRows == 3 {
       // Render number of tweets and favorites if it exists.
-      cell = tableView.dequeueReusableCellWithIdentifier(countCellIdentifier, forIndexPath: indexPath) as! CountTableViewCell
+      let countCell = tableView.dequeueReusableCellWithIdentifier(countCellIdentifier, forIndexPath: indexPath) as! CountTableViewCell
+      countCell.tweet = currentTweet
+      cell = countCell
     } else {
       // Render actions
       cell = tableView.dequeueReusableCellWithIdentifier(actionCellIdentifier, forIndexPath: indexPath) as! ActionTableViewCell
     }
+
     return cell
   }
   
