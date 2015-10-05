@@ -229,11 +229,12 @@
                     <navigationItem key="navigationItem" id="8pt-gC-tyG"/>
                     <connections>
                         <outlet property="newTweetView" destination="WQL-sN-7Ea" id="UV7-4i-UhR"/>
+                        <segue destination="2hx-eO-iIo" kind="presentation" identifier="homeFromTweetingSegue" id="BVI-Po-mbJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6M-6R-1WX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2737" y="967"/>
+            <point key="canvasLocation" x="2259" y="1133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ln9-3j-oRl">
@@ -269,7 +270,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xyi-W7-Mhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2037" y="967"/>
+            <point key="canvasLocation" x="1455" y="1127"/>
         </scene>
     </scenes>
     <resources>
@@ -277,4 +278,7 @@
         <image name="reply" width="16" height="16"/>
         <image name="retweet" width="19" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="BVI-Po-mbJ"/>
+    </inferredMetricsTieBreakers>
 </document>

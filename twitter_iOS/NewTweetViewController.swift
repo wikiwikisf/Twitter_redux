@@ -50,7 +50,7 @@ class NewTweetViewController: UIViewController {
     TwitterClient.instance.postTweet(["status" : newTweetView.tweetTextField.text!]) { (error) -> () in
       if (error == nil) {
         print("return to home view")
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.performSegueWithIdentifier("homeFromTweetingSegue", sender: self)
       }
     }
   }
@@ -74,10 +74,8 @@ class NewTweetViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let navigationController = segue.destinationViewController as! UINavigationController
     for view in navigationController.viewControllers {
-      //
+      
     }
-
-  }
-*/
+  }*/
   
 }
