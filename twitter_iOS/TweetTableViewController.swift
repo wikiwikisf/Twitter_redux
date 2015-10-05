@@ -40,6 +40,9 @@ class TweetTableViewController: UITableViewController {
     navigationItem.rightBarButtonItem = replyButton
     
     navigationItem.title = "Tweet"
+    
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 150
   }
   
   
@@ -74,7 +77,8 @@ class TweetTableViewController: UITableViewController {
       let tweetCell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
       tweetCell.tweet = currentTweet
       cell = tweetCell
-      // TODO: reformat the cell for this view
+      
+      
     } else if indexPath.row == 1 {
       // Render number of tweets and favorites if it exists.
       cell = tableView.dequeueReusableCellWithIdentifier(countCellIdentifier, forIndexPath: indexPath) as! CountTableViewCell
