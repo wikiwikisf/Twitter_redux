@@ -91,13 +91,15 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     })
   }
   
-  func postTweet(params: NSDictionary?, completion: (error: NSError?) -> ()) {
+  func postTweet(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
     POST("1.1/statuses/update.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
       print("post tweet successful \(response)")
-      completion(error: nil)
+      let dictionary = response as! NSDictionary
+      let postedTweet = Tweet(dictionary: dictionary)
+      completion(tweet: postedTweet, error: nil)
       }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         print("error posting tweet")
-        completion(error: error)
+        completion(tweet: nil, error: error)
     })
   }
   

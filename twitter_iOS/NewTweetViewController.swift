@@ -47,10 +47,16 @@ class NewTweetViewController: UIViewController {
   internal func submitTweet() {
     print("submit tweet")
     // Segue back to the Home view and refresh the homeview
-    TwitterClient.instance.postTweet(["status" : newTweetView.tweetTextField.text!]) { (error) -> () in
+    TwitterClient.instance.postTweet(["status" : newTweetView.tweetTextField.text!]) { (tweet, error) -> () in
       if (error == nil) {
         print("return to home view")
-        self.performSegueWithIdentifier("homeFromTweetingSegue", sender: self)
+        // Add the new tweet to the home timeline
+        let nc = self.presentingViewController as! UINavigationController
+        let homeVC = nc.viewControllers[0] as! HomeTableViewController
+        homeVC.homeTweets.insert(tweet!, atIndex: 0)
+        homeVC.tableView.reloadData()
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
       }
     }
   }
