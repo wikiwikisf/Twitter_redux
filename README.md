@@ -1,7 +1,7 @@
 
 This is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: `<Number of hours spent>`
+Time spent: `25hrs`
 
 ### Features
 
@@ -15,6 +15,7 @@ Time spent: `<Number of hours spent>`
 - [X] User can compose a new tweet by tapping on a compose button.
 - [X] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
 - [ ] User can retweet, favorite, and reply to the tweet directly from the timeline feed.
+  Note: I ran into an issue here and unfortunately ran out of time. I can only retweet, favorite, and reply from the detailed tweet view right now. The issue I had was I reused the cell in the two TableViewControllers. But, later I couldn't fix adding outlets or updating outlets to one view controller's cell without breaking the other.
 
 #### Optional
 
