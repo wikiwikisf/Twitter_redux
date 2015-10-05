@@ -1,18 +1,20 @@
 //
-//  HomeTableViewController.swift
+//  TweetTableViewController.swift
 //  twitter_iOS
 //
-//  Created by Vicki Chun on 10/3/15.
+//  Created by Vicki Chun on 10/4/15.
 //  Copyright © 2015 Vicki Grospe. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewController: UITableViewController {
+class TweetTableViewController: UITableViewController {
   
   let tweetCellIdentifier = "TweetCell"
+  let countCellIdentifier = "CountCell"
+  let actionCellIdentifier = "ActionCell"
   
-  var homeTweets: [Tweet]!
+  var currentTweet : Tweet!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,54 +22,33 @@ class HomeTableViewController: UITableViewController {
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
     
-    // Setup logout button in navigation bar
-    let logoutButton = UIBarButtonItem()
-    logoutButton.title = "Sign Out"
-    logoutButton.action = Selector("logout")
-    logoutButton.target = self
-    navigationItem.leftBarButtonItem = logoutButton
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     
-    // Setup New button in navigation bar
-    let newButton = UIBarButtonItem()
-    newButton.title = "New"
-    newButton.action = Selector("composeTweet")
-    newButton.target = self
-    navigationItem.rightBarButtonItem = newButton
+    // Setup home button in navigation bar
+    let homeButton = UIBarButtonItem()
+    homeButton.title = "Home"
+    homeButton.action = Selector("returnHome")
+    homeButton.target = self
+    navigationItem.leftBarButtonItem = homeButton
     
-    navigationItem.title = "Home"
+    // Setup reply button in navigation bar
+    let replyButton = UIBarButtonItem()
+    replyButton.title = "Reply"
+    replyButton.action = Selector("replyToTweet")
+    replyButton.target = self
+    navigationItem.rightBarButtonItem = replyButton
     
-    tableView.rowHeight = UITableViewAutomaticDimension
-    tableView.estimatedRowHeight = 200
-    
-    refreshControl = UIRefreshControl()
-    refreshControl?.addTarget(self, action: "renderHomeTimeline", forControlEvents: UIControlEvents.ValueChanged)
-    
-    // TODO: progress bar
-    renderHomeTimeline()
+    navigationItem.title = "Tweet"
   }
   
-  internal func logout() {
-    User.currentUser?.logout()
+  
+  func replyToTweet() {
+    // TODO
   }
   
-  internal func composeTweet() {
-    // segue to new tweet 
-    performSegueWithIdentifier("newTweetSegue", sender: self)
-  }
-  
-  internal func renderHomeTimeline() {
-    TwitterClient.instance.getHomeTimeline(["contributor_details":true]) { (tweets: [Tweet]?, error: NSError?) -> () in
-      // If get home timeline successful then render the home tweets
-      dispatch_async(dispatch_get_main_queue(), {
-        if (tweets != nil) {
-          self.homeTweets = tweets
-          self.tableView.reloadData()
-          self.refreshControl?.endRefreshing()
-        } else {
-          // Handle error
-        }
-      })
-    }
+  func returnHome() {
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
   override func didReceiveMemoryWarning() {
@@ -76,18 +57,31 @@ class HomeTableViewController: UITableViewController {
   }
   
   // MARK: - Table view data source
+  
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let rows = (homeTweets != nil) ? homeTweets.count : 0
-    return rows
+    // TODO: if the selected tweet has favorites and retweets then 3, else 2
+    return 3
   }
   
+  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
-    cell.tweet = homeTweets[indexPath.row]
+    var cell: UITableViewCell
+    if indexPath.row == 0 {
+      let tweetCell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
+      tweetCell.tweet = currentTweet
+      cell = tweetCell
+      // TODO: reformat the cell for this view
+    } else if indexPath.row == 1 {
+      // Render number of tweets and favorites if it exists.
+      cell = tableView.dequeueReusableCellWithIdentifier(countCellIdentifier, forIndexPath: indexPath) as! CountTableViewCell
+    } else {
+      // Render actions
+      cell = tableView.dequeueReusableCellWithIdentifier(actionCellIdentifier, forIndexPath: indexPath) as! ActionTableViewCell
+    }
     return cell
   }
   
@@ -126,19 +120,14 @@ class HomeTableViewController: UITableViewController {
   }
   */
   
-  
+  /*
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let cell = sender as? TweetTableViewCell {
-      let indexPath = tableView.indexPathForCell(cell)!
-      let currentTweet = homeTweets![indexPath.row]
-      
-      let navigationController = segue.destinationViewController as! UINavigationController
-      let tweetDetailsViewController = navigationController.viewControllers[0] as! TweetTableViewController
-      tweetDetailsViewController.currentTweet = currentTweet
-    }
+  // Get the new view controller using segue.destinationViewController.
+  // Pass the selected object to the new view controller.
   }
+  */
   
 }
