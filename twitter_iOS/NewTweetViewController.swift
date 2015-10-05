@@ -12,6 +12,8 @@ class NewTweetViewController: UIViewController {
   
   @IBOutlet var newTweetView: NewTweetView!
   
+  var replytweetId: Int?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -46,17 +48,27 @@ class NewTweetViewController: UIViewController {
   
   internal func submitTweet() {
     print("submit tweet")
-    // Segue back to the Home view and refresh the homeview
-    TwitterClient.instance.postTweet(["status" : newTweetView.tweetTextField.text!]) { (tweet, error) -> () in
-      if (error == nil) {
-        print("return to home view")
-        // Add the new tweet to the home timeline
-        let nc = self.presentingViewController as! UINavigationController
-        let homeVC = nc.viewControllers[0] as! HomeTableViewController
-        homeVC.homeTweets.insert(tweet!, atIndex: 0)
-        homeVC.tableView.reloadData()
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+    if (replytweetId != nil) {
+      TwitterClient.instance.replyTweet(newTweetView.tweetTextField.text!, tweetId: replytweetId!) { (tweet, error) -> () in
+        if (error == nil) {
+          // Segue back to the Home view and refresh the homeview
+          print("return to home view")
+          self.dismissViewControllerAnimated(true, completion: nil)
+        }
+      }
+    } else {
+      TwitterClient.instance.postTweet(["status" : newTweetView.tweetTextField.text!]) { (tweet, error) -> () in
+        if (error == nil) {
+          // Segue back to the Home view and refresh the homeview
+          print("return to home view")
+          // Add the new tweet to the home timeline
+          let nc = self.presentingViewController as! UINavigationController
+          let homeVC = nc.viewControllers[0] as! HomeTableViewController
+          homeVC.homeTweets.insert(tweet!, atIndex: 0)
+          homeVC.tableView.reloadData()
+          
+          self.dismissViewControllerAnimated(true, completion: nil)
+        }
       }
     }
   }

@@ -48,7 +48,7 @@ class TweetTableViewController: UITableViewController {
   
   
   func replyToTweet() {
-    // TODO
+    performSegueWithIdentifier("replySegue", sender: self)
   }
   
   func returnHome() {
@@ -133,14 +133,15 @@ class TweetTableViewController: UITableViewController {
   }
   */
   
-  /*
+  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+      let navigationController = segue.destinationViewController as! UINavigationController
+      let replyTweetViewController = navigationController.viewControllers[0] as! NewTweetViewController
+      replyTweetViewController.replytweetId = currentTweet.id
   }
-  */
+  
   
 }
