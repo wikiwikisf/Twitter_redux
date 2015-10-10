@@ -72,6 +72,26 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
   }
   
+  func getMentionsTimeline(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+    GET("1.1/statuses/mentions_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+      let dictionary = response as! [NSDictionary]
+      print("received tweets ", dictionary.count)
+      print("first tweet: \(response[0])")
+      
+      let tweets = Tweet.assembleTweets(response as! [NSDictionary])
+      completion(tweets: tweets, error: nil)
+      
+      for tweet in tweets {
+        print("text: \(tweet.text), isRetweet: \(tweet.retweeted), date: \(tweet.createdAt)")
+      }
+      
+      }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        print("error getting the mentions timeline")
+        completion(tweets: nil, error: error)
+    })
+  }
+
+  
   func getHomeTimeline(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
     GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
       let dictionary = response as! [NSDictionary]
