@@ -19,6 +19,14 @@ class ActionTableViewCell: UITableViewCell {
       tweetId = tweet.id
       isFavorited = tweet.favorited
       isRetweeted = tweet.isRetweeted
+      
+      if isFavorited == true {
+        self.favoriteButton.imageView?.image = UIImage(named: "favorite_on")
+      }
+      
+      if isRetweeted == true {
+        self.retweetButton.imageView?.image = UIImage(named: "retweet_on")
+      }
     }
   }
 
@@ -53,6 +61,7 @@ class ActionTableViewCell: UITableViewCell {
   }
   
   @IBAction func retweetAction(sender: AnyObject) {
+    print("retweet action")
     if isRetweeted! == false {
       TwitterClient.instance.reTweet(["id": tweetId!]) { (tweet, error) -> () in
         if error == nil {
@@ -63,12 +72,12 @@ class ActionTableViewCell: UITableViewCell {
       }
     }
   }
-  
+
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
   }
-  
+    
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     
