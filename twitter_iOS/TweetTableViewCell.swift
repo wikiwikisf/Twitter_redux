@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TweetTableViewCellDelegate: class {
+  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?)
+}
+
 class TweetTableViewCell: UITableViewCell {
   
   @IBOutlet weak var profileImageView: UIImageView!
@@ -25,6 +29,8 @@ class TweetTableViewCell: UITableViewCell {
   
   @IBOutlet weak var retweetButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!
+  
+  weak var delegate: TweetTableViewCellDelegate?
   
   var tweetId : Int?
   var isFavorited: Bool?
@@ -88,7 +94,8 @@ class TweetTableViewCell: UITableViewCell {
   }
   
   @IBAction func replyAction(sender: AnyObject) {
-    // send event to TweetTableViewControllerß
+    // send event to TweetTableViewController
+    
   }
   
   @IBAction func retweetAction(sender: AnyObject) {
@@ -98,6 +105,7 @@ class TweetTableViewCell: UITableViewCell {
           print("retweeted")
           self.retweetButton.imageView?.image = UIImage(named: "retweet_on")
           self.isRetweeted = true
+          self.delegate?.tweetTableViewCell(self, didChangeValue: true)
         }
       }
     }
@@ -111,6 +119,7 @@ class TweetTableViewCell: UITableViewCell {
           // TODO: decrement favorite count
           self.favoriteButton.imageView?.image = UIImage(named: "favorite")
           self.isFavorited = false
+          self.delegate?.tweetTableViewCell(self, didChangeValue: true)
         }
       }
     } else {
@@ -121,6 +130,7 @@ class TweetTableViewCell: UITableViewCell {
           // TODO: increment favorite count
           self.favoriteButton.imageView?.image = UIImage(named: "favorite_on")
           self.isFavorited = true
+          self.delegate?.tweetTableViewCell(self, didChangeValue: true)
         }
       }
     }

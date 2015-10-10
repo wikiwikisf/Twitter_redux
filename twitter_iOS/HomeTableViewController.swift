@@ -88,6 +88,7 @@ class HomeTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(tweetCellIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
     cell.tweet = homeTweets[indexPath.row]
+    cell.delegate = self
     return cell
   }
   
@@ -141,4 +142,13 @@ class HomeTableViewController: UITableViewController {
     }
   }
   
+}
+
+extension HomeTableViewController : TweetTableViewCellDelegate {
+  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?) {
+    // here we update the favorited and retweeted status
+    // find the tweet in [homeTweets" that matches the given cell.tweetId.
+    // Update that tweet's favorited or retweeted icons
+    
+  }
 }
