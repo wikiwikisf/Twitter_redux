@@ -149,6 +149,12 @@ extension HomeTableViewController : TweetTableViewCellDelegate {
     // here we update the favorited and retweeted status
     // find the tweet in [homeTweets" that matches the given cell.tweetId.
     // Update that tweet's favorited or retweeted icons
-    
+  }
+  
+  func replyToTweet(cell: TweetTableViewCell) {
+    print("reply action using cell \(cell.tweetId)")
+    // reply  using the given cell id to reply to
+    //performSegueWithIdentifier("replySegue", sender: self)
+    // in prepare to segue pass in the given tweet id
   }
 }
