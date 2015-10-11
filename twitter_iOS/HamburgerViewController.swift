@@ -44,8 +44,19 @@ class HamburgerViewController: UIViewController {
     // Do any additional setup after loading the view.
     let user = User.currentUser
     let userProfilePicUrl = user?.profileImageURL
-    let data = NSData(contentsOfURL: NSURL(string: userProfilePicUrl!)!)
+    
+    var largeProfileString = userProfilePicUrl
+    let range = userProfilePicUrl!.rangeOfString("_normal", options: .RegularExpressionSearch)
+    if let range = range {
+     largeProfileString =
+        userProfilePicUrl!.stringByReplacingCharactersInRange(range, withString: "_bigger")
+    }
+    
+    let data = NSData(contentsOfURL: NSURL(string: largeProfileString!)!)
     profileButton.setImage(UIImage(data: data!), forState: UIControlState.Normal)
+   // profileButton.imageView?.layer.cornerRadius = 37
+    profileButton.imageView?.layer.cornerRadius = 8
+    profileButton.imageView?.clipsToBounds = true
     
   }
   
