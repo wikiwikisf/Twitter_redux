@@ -15,12 +15,12 @@ class ContainerViewController: UIViewController {
     case MenuExpanded
   }
   
-  var homeViewController : HomeTableViewController!
-  var hamburgerViewController : HamburgerViewController!
-  var mentionsViewController : MentionsTableViewController!
-  var profileViewController : ProfileViewController!
-  var currentState : SlideOutState = .MenuCollapsed
-  var selectedViewController: UIViewController?
+  private var homeViewController : HomeTableViewController!
+  private var hamburgerViewController : HamburgerViewController!
+  private var mentionsViewController : MentionsTableViewController!
+  private var profileViewController : ProfileViewController!
+  private var currentState : SlideOutState = .MenuCollapsed
+  private var selectedViewController: UIViewController?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,6 +30,9 @@ class ContainerViewController: UIViewController {
     // Load home timeline by default
     homeViewController = UIStoryboard.homeViewController()
     selectViewController(homeViewController)
+    
+    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+    view.addGestureRecognizer(panGestureRecognizer)
   }
   
   override func didReceiveMemoryWarning() {
@@ -71,8 +74,8 @@ class ContainerViewController: UIViewController {
     }
 
     addChildViewController(hamburgerViewController)
-    //hamburgerViewController.view.frame = view.bounds
-    //hamburgerViewController.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+    hamburgerViewController.view.frame = view.bounds
+    hamburgerViewController.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
     view.insertSubview(hamburgerViewController.view, atIndex: 0)
     
     hamburgerViewController.didMoveToParentViewController(self)
@@ -112,25 +115,21 @@ class ContainerViewController: UIViewController {
     view.addSubview(vc.view)
     vc.didMoveToParentViewController(self)
     
-    
-    // TODO: Move pan gesture recognizer to TweetTableViewCell instead 
-    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
-    vc.view.addGestureRecognizer(panGestureRecognizer)
-    
     selectedViewController = vc
   }
   
-  internal func animateMenuPanel(shouldExpand: Bool){
-    if shouldExpand {
-      animateCenterXPosition(0.0)
+  internal func animateMenuPanel(shouldShowMenu: Bool){
+    if shouldShowMenu {
+      animateSelectedViewXPosition(0.0)
+
     } else {
-      // TODO fix this for the other 2 view controller frames
-      animateCenterXPosition(CGRectGetWidth(selectedViewController!.view.frame) - 120.0)
+      animateSelectedViewXPosition(CGRectGetWidth(selectedViewController!.view.frame) - 120.0)
+
     }
   }
   
-  internal func animateCenterXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
-    UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+  internal func animateSelectedViewXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
+    UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
       self.selectedViewController!.view.frame.origin.x = targetPosition
       }, completion: completion)
   }
@@ -155,22 +154,30 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
     // if the menu view controller is not currently seen, show it
     let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
     
+    var hasMovedGreaterThanHalfway : Bool?
     switch(recognizer.state) {
-    case .Began:
-      if (currentState == .MenuCollapsed && gestureIsDraggingFromLeftToRight) {
-        addMenuViewController()
-      }
-    case .Changed:
-      print("state changed")
-      recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-      recognizer.setTranslation(CGPointZero, inView: view)
-    case .Ended:
-      print("state ended")
-      // animate the menu open or closed based on whether the view has moved more or less than halfway
-      let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
-      animateMenuPanel(hasMovedGreaterThanHalfway)
-    default:
-      break
+      case .Began:
+        if (currentState == .MenuCollapsed && gestureIsDraggingFromLeftToRight) {
+          print("state began addMenuViewController \(selectedViewController!.view.bounds.size.width)")
+          addMenuViewController()
+        }
+      case .Changed:
+        //recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
+        //recognizer.setTranslation(CGPointZero, inView: view)
+        break
+      case .Ended:
+        let location = recognizer.locationInView(selectedViewController!.view)
+        print("state ended \(location)")
+        
+        // animate the menu open or closed based on whether the view has moved more or less than halfway
+        hasMovedGreaterThanHalfway = selectedViewController!.view.center.x > view.bounds.size.width
+        animateMenuPanel(hasMovedGreaterThanHalfway!)
+      case .Cancelled:
+        break
+      case .Failed:
+        break
+      case .Possible:
+        break
     }
   }
   
