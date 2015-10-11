@@ -20,22 +20,6 @@ class HomeTableViewController: UITableViewController {
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
     
-    // Setup logout button in navigation bar
-    let logoutButton = UIBarButtonItem()
-    logoutButton.title = "Sign Out"
-    logoutButton.action = Selector("logout")
-    logoutButton.target = self
-    navigationItem.leftBarButtonItem = logoutButton
-    
-    // Setup New button in navigation bar
-    let newButton = UIBarButtonItem()
-    newButton.title = "New"
-    newButton.action = Selector("composeTweet")
-    newButton.target = self
-    navigationItem.rightBarButtonItem = newButton
-    
-    navigationItem.title = "Home"
-    
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 200
     
@@ -45,16 +29,7 @@ class HomeTableViewController: UITableViewController {
     // TODO: progress bar
     renderHomeTimeline()
   }
-  
-  internal func logout() {
-    User.currentUser?.logout()
-  }
-  
-  internal func composeTweet() {
-    // segue to new tweet 
-    performSegueWithIdentifier("newTweetSegue", sender: self)
-  }
-  
+    
   internal func renderHomeTimeline() {
     TwitterClient.instance.getHomeTimeline(["contributor_details":true]) { (tweets: [Tweet]?, error: NSError?) -> () in
       // If get home timeline successful then render the home tweets
@@ -149,6 +124,12 @@ extension HomeTableViewController : TweetTableViewCellDelegate {
     // here we update the favorited and retweeted status
     // find the tweet in [homeTweets" that matches the given cell.tweetId.
     // Update that tweet's favorited or retweeted icons
-    
+  }
+  
+  func replyToTweet(cell: TweetTableViewCell) {
+    print("reply action using cell \(cell.tweetId)")
+    // reply  using the given cell id to reply to
+    //performSegueWithIdentifier("replySegue", sender: self)
+    // in prepare to segue pass in the given tweet id
   }
 }

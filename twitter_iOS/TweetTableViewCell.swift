@@ -10,6 +10,7 @@ import UIKit
 
 protocol TweetTableViewCellDelegate: class {
   func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?)
+  func replyToTweet(cell: TweetTableViewCell)
 }
 
 class TweetTableViewCell: UITableViewCell {
@@ -94,8 +95,8 @@ class TweetTableViewCell: UITableViewCell {
   }
   
   @IBAction func replyAction(sender: AnyObject) {
-    // send event to TweetTableViewController
-    
+    // send event to TweetTableViewController to tell it to segue
+    self.delegate?.replyToTweet(self)
   }
   
   @IBAction func retweetAction(sender: AnyObject) {
