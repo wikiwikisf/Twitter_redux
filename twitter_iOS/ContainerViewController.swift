@@ -125,14 +125,14 @@ class ContainerViewController: UIViewController {
       animateCenterXPosition(0.0)
     } else {
       // TODO fix this for the other 2 view controller frames
-      animateCenterXPosition(CGRectGetWidth(homeViewController.view.frame) - 70.0)
+      animateCenterXPosition(CGRectGetWidth(selectedViewController!.view.frame) - 70.0)
     }
   }
   
   internal func animateCenterXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
     UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
       // TODO replace this with currently selected vc
-      self.homeViewController.view.frame.origin.x = targetPosition
+      self.selectedViewController!.view.frame.origin.x = targetPosition
       }, completion: completion)
   }
 
