@@ -18,6 +18,7 @@ class ContainerViewController: UIViewController {
   var homeViewController : HomeTableViewController!
   var hamburgerViewController : HamburgerViewController!
   var mentionsViewController : MentionsTableViewController!
+  var profileViewController : ProfileViewController!
   var currentState : SlideOutState = .MenuCollapsed
   var selectedViewController: UIViewController?
   
@@ -29,10 +30,6 @@ class ContainerViewController: UIViewController {
     // Load home timeline by default
     homeViewController = UIStoryboard.homeViewController()
     selectViewController(homeViewController)
-
-    // TODO: move this?
-  //  let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
-  //  homeViewController.view.addGestureRecognizer(panGestureRecognizer)
   }
   
   override func didReceiveMemoryWarning() {
@@ -115,6 +112,8 @@ class ContainerViewController: UIViewController {
     view.addSubview(vc.view)
     vc.didMoveToParentViewController(self)
     
+    
+    // TODO: Move pan gesture recognizer to TweetTableViewCell instead 
     let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
     vc.view.addGestureRecognizer(panGestureRecognizer)
     
@@ -125,6 +124,7 @@ class ContainerViewController: UIViewController {
     if shouldExpand {
       animateCenterXPosition(0.0)
     } else {
+      // TODO fix this for the other 2 view controller frames
       animateCenterXPosition(CGRectGetWidth(homeViewController.view.frame) - 70.0)
     }
   }
@@ -163,8 +163,8 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
       }
     case .Changed:
       print("state changed")
-     // recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-      //recognizer.setTranslation(CGPointZero, inView: view)
+      recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
+      recognizer.setTranslation(CGPointZero, inView: view)
     case .Ended:
       print("state ended")
       // animate the menu open or closed based on whether the view has moved more or less than halfway
@@ -174,6 +174,7 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
       break
     }
   }
+  
 }
 
 // MARK: HamburgerViewController
@@ -184,8 +185,8 @@ extension ContainerViewController: HamburgerViewControllerDelegate {
   }
   
   func showProfile(menu: HamburgerViewController) {
-    //profileViewController = UIStoryboard.profileViewController()
-    //selectViewController(profileViewController)
+    profileViewController = UIStoryboard.profileViewController()
+    selectViewController(profileViewController)
   }
   
   func showMentionsTimeline(menu: HamburgerViewController) {
@@ -209,6 +210,9 @@ private extension UIStoryboard {
   class func hamburgerViewController() -> HamburgerViewController? {
     return mainStoryboard().instantiateViewControllerWithIdentifier("HamburgerViewController") as? HamburgerViewController
   }
-  // TODO add profile , mentions
+  
+  class func profileViewController() -> ProfileViewController? {
+    return mainStoryboard().instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController
+  }
   
 }

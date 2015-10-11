@@ -481,6 +481,66 @@
             </objects>
             <point key="canvasLocation" x="3823" y="-737"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="0oe-Kn-NyV">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="Tlp-Jf-044" customClass="ProfileViewController" customModule="twitter_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NtG-SO-MeT"/>
+                        <viewControllerLayoutGuide type="bottom" id="NOS-dL-teM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cmC-na-tbl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="otP-W6-kZU" customClass="UserHeaderView" customModule="twitter_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="244"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwd-t4-Qbr">
+                                        <rect key="frame" x="28" y="19" width="111" height="87"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="250 Tweets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kK2-Tk-qH2">
+                                        <rect key="frame" x="28" y="166" width="90" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="250 Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBh-Oa-aq4">
+                                        <rect key="frame" x="132" y="166" width="108" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="250 Following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-x1-LUh">
+                                        <rect key="frame" x="255" y="164" width="107" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@screen_name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeM-rO-Ikc">
+                                        <rect key="frame" x="26" y="119" width="117" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="numberFollowersLabel" destination="DBh-Oa-aq4" id="9tH-xo-eoX"/>
+                        <outlet property="numberFollowingLabel" destination="iXW-x1-LUh" id="G56-Zw-Ucd"/>
+                        <outlet property="numberTweetsLabel" destination="BeM-rO-Ikc" id="ZFV-Ua-TTz"/>
+                        <outlet property="profileImageView" destination="gwd-t4-Qbr" id="IYt-J8-5lf"/>
+                        <outlet property="screenNameLabel" destination="BeM-rO-Ikc" id="Zd5-MJ-JaX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ffI-HP-dys" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2951" y="-3195"/>
+        </scene>
         <!--Mentions Table View Controller-->
         <scene sceneID="yVs-jt-27P">
             <objects>
