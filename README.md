@@ -1,6 +1,6 @@
 ## Twitter Redux
 
-Time spent: `<Number of hours spent>`
+Time spent: `17hrs`
 
 ### Features
 
@@ -29,3 +29,4 @@ Time spent: `<Number of hours spent>`
    - [ ] Swipe to delete an account
 
 ### Walkthrough
+![Video Walkthrough](Twitter-Redux-iOS.gif)
