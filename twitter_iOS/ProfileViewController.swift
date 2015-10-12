@@ -10,17 +10,15 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-  var user_name: String?
+  var profileUser: User?
   
+  @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!
-  
-  @IBOutlet weak var numberTweetsLabel: UILabel!
-  
-  @IBOutlet weak var screenNameLabel: UILabel!
-  
+  @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var numberFollowersLabel: UILabel!
-  
   @IBOutlet weak var numberFollowingLabel: UILabel!
+  @IBOutlet weak var screenNameLabel: UILabel!
+  @IBOutlet weak var numberTweetsLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,7 +27,7 @@ class ProfileViewController: UIViewController {
     
     // Setup data for the given user
     // or current user if the givenuser is nil
-    
+    setupUserProfile()
   }
   
   override func didReceiveMemoryWarning() {
@@ -37,6 +35,23 @@ class ProfileViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
+  private func setupUserProfile() {
+    profileUser = (profileUser == nil) ? User._currentUser : profileUser
+    
+    if let url = profileUser!.profileBannerURL {
+      backgroundImageView.setImageWithURL(NSURL(string: url))
+    }
+    
+    if let url = profileUser!.profileImageURL {
+      profileImageView.setImageWithURL(NSURL(string: url))
+    }
+    
+    screenNameLabel.text = "@\(profileUser!.screenName!)"
+    nameLabel.text = profileUser!.name
+    numberTweetsLabel.text = "\(profileUser!.tweetsCount!) Tweets"
+    numberFollowersLabel.text = "\(profileUser!.followersCount!) Followers"
+    numberFollowingLabel.text = "\(profileUser!.followingCount!) Following"
+  }
   
   /*
   // MARK: - Navigation

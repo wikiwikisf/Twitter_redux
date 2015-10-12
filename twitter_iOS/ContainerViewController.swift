@@ -162,8 +162,6 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
           addMenuViewController()
         }
       case .Changed:
-        //recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-        //recognizer.setTranslation(CGPointZero, inView: view)
         break
       case .Ended:
         let location = recognizer.locationInView(selectedViewController!.view)
