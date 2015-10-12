@@ -54,7 +54,6 @@ class HamburgerViewController: UIViewController {
     
     let data = NSData(contentsOfURL: NSURL(string: largeProfileString!)!)
     profileButton.setImage(UIImage(data: data!), forState: UIControlState.Normal)
-   // profileButton.imageView?.layer.cornerRadius = 37
     profileButton.imageView?.layer.cornerRadius = 8
     profileButton.imageView?.clipsToBounds = true
     

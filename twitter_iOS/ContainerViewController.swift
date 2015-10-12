@@ -123,7 +123,7 @@ class ContainerViewController: UIViewController {
       animateSelectedViewXPosition(0.0)
 
     } else {
-      animateSelectedViewXPosition(CGRectGetWidth(selectedViewController!.view.frame) - 120.0)
+      animateSelectedViewXPosition(CGRectGetWidth(selectedViewController!.view.frame) - 140.0)
 
     }
   }
@@ -164,9 +164,6 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
       case .Changed:
         break
       case .Ended:
-        let location = recognizer.locationInView(selectedViewController!.view)
-        print("state ended \(location)")
-        
         // animate the menu open or closed based on whether the view has moved more or less than halfway
         hasMovedGreaterThanHalfway = selectedViewController!.view.center.x > view.bounds.size.width
         animateMenuPanel(hasMovedGreaterThanHalfway!)

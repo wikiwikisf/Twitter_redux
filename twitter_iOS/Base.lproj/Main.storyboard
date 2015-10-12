@@ -748,7 +748,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="MyE-Wu-T7T"/>
                                 </constraints>
-                                <state key="normal" title="Mentions"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="Mentions">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="onClickHome:" destination="im7-U3-BDx" eventType="touchUpInside" id="MO0-zW-UEu"/>
                                     <action selector="onClickMentions:" destination="im7-U3-BDx" eventType="touchUpInside" id="BD8-lQ-hnd"/>
@@ -759,13 +762,16 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="bwf-CI-CSc"/>
                                 </constraints>
-                                <state key="normal" title="Home"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="Home">
+                                    <color key="titleColor" red="0.99613320709999997" green="0.99613320709999997" blue="0.99613320709999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="onClickHome:" destination="im7-U3-BDx" eventType="touchUpInside" id="qMT-Kf-TMh"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="i7i-fa-ybq" firstAttribute="leading" secondItem="2FR-cL-xev" secondAttribute="leading" constant="8" id="2yu-OZ-Hqw"/>
                             <constraint firstAttribute="trailing" secondItem="FUN-vp-wQi" secondAttribute="trailing" constant="2" id="9IP-0f-w6n"/>
