@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController {
     
     // Do any additional setup after loading the view.
     
+    setupNavItems()
     // Setup data for the given user
     // or current user if the givenuser is nil
     setupUserProfile()
@@ -33,6 +34,19 @@ class ProfileViewController: UIViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  private func setupNavItems() {
+    // Setup Cancel button in navigation bar
+    let cancelButton = UIBarButtonItem()
+    cancelButton.title = "Cancel"
+    cancelButton.action = Selector("cancel")
+    cancelButton.target = self
+    navigationItem.leftBarButtonItem = cancelButton
+  }
+  
+  func cancel() {
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
   private func setupUserProfile() {
@@ -44,6 +58,8 @@ class ProfileViewController: UIViewController {
     
     if let url = profileUser!.profileImageURL {
       profileImageView.setImageWithURL(NSURL(string: url))
+      profileImageView.layer.cornerRadius = 4
+      profileImageView.clipsToBounds = true
     }
     
     screenNameLabel.text = "@\(profileUser!.screenName!)"

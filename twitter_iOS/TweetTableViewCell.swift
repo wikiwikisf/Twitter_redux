@@ -9,7 +9,8 @@
 import UIKit
 
 protocol TweetTableViewCellDelegate: class {
-  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?)
+  func tweetTableViewCell(cell: TweetTableViewCell, didChangeValue value: Bool)
+  func tweetTableViewCell(cell: TweetTableViewCell, didTapProfileImage: UIImageView)
   func replyToTweet(cell: TweetTableViewCell)
 }
 
@@ -42,6 +43,8 @@ class TweetTableViewCell: UITableViewCell {
       if let url = tweet.user?.profileImageURL {
         profileImageView.setImageWithURL(NSURL(string: url))
       }
+      profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onProfileImageTap:"))
+      
       userNameLabel.text = tweet.user?.name
       let screenNameText = tweet.user?.screenName
       screenNameLabel.text = "@\(screenNameText!)"
@@ -84,6 +87,11 @@ class TweetTableViewCell: UITableViewCell {
     formatter.maximumUnitCount = 1
     let interval = NSDate().timeIntervalSinceDate(sinceDate)
     return formatter.stringFromTimeInterval(interval)!
+  }
+  
+  func onProfileImageTap(sender: UITapGestureRecognizer) {
+    print("profile image tapped!")
+    delegate?.tweetTableViewCell(self, didTapProfileImage: profileImageView)
   }
   
   override func awakeFromNib() {

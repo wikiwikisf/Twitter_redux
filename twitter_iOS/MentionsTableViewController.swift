@@ -78,7 +78,11 @@ class MentionsTableViewController: UITableViewController {
 }
 
 extension MentionsTableViewController : TweetTableViewCellDelegate {
-  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?) {
+  func tweetTableViewCell(cell: TweetTableViewCell, didTapProfileImage: UIImageView) {
+    let screenName = cell.screenNameLabel
+  }
+  
+  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool) {
     // here we update the favorited and retweeted status
     // find the tweet in [homeTweets" that matches the given cell.tweetId.
     // Update that tweet's favorited or retweeted icons

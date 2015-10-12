@@ -13,6 +13,7 @@ class HomeTableViewController: UITableViewController {
   let tweetCellIdentifier = "TweetCell"
   
   var homeTweets: [Tweet]!
+  private var profileUser: User?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -67,42 +68,6 @@ class HomeTableViewController: UITableViewController {
     return cell
   }
   
-  /*
-  // Override to support conditional editing of the table view.
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return false if you do not want the specified item to be editable.
-  return true
-  }
-  */
-  
-  /*
-  // Override to support editing the table view.
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-  if editingStyle == .Delete {
-  // Delete the row from the data source
-  tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-  } else if editingStyle == .Insert {
-  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-  }
-  }
-  */
-  
-  /*
-  // Override to support rearranging the table view.
-  override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-  
-  }
-  */
-  
-  /*
-  // Override to support conditional rearranging of the table view.
-  override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return false if you do not want the item to be re-orderable.
-  return true
-  }
-  */
-  
-  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -111,16 +76,32 @@ class HomeTableViewController: UITableViewController {
       let indexPath = tableView.indexPathForCell(cell)!
       let currentTweet = homeTweets![indexPath.row]
       
-      let navigationController = segue.destinationViewController as! UINavigationController
-      let tweetDetailsViewController = navigationController.viewControllers[0] as! TweetTableViewController
-      tweetDetailsViewController.currentTweet = currentTweet
+      if let navigationController = segue.destinationViewController as? UINavigationController {
+        let tweetDetailsViewController = navigationController.viewControllers[0] as! TweetTableViewController
+        tweetDetailsViewController.currentTweet = currentTweet
+      }
+    } else if let navigationController = segue.destinationViewController as? UINavigationController {
+      let profileVC = navigationController.viewControllers[0] as! ProfileViewController
+      profileVC.profileUser = profileUser
     }
   }
-  
 }
 
 extension HomeTableViewController : TweetTableViewCellDelegate {
-  func tweetTableViewCell(cell : TweetTableViewCell, didChangeValue value: Bool?) {
+  func tweetTableViewCell(cell: TweetTableViewCell, didTapProfileImage: UIImageView) {
+    let screenName = cell.tweet.user?.screenName
+    
+    TwitterClient.instance.getUserWithScreenName(["screen_name": screenName!]) { (user: User?, error: NSError?) -> () in
+      dispatch_async(dispatch_get_main_queue(), {
+        if (error == nil) {
+          self.profileUser = user
+          self.performSegueWithIdentifier("showProfile", sender: self)
+        }
+      })
+    }
+  }
+  
+  func tweetTableViewCell(cell: TweetTableViewCell, didChangeValue value: Bool) {
     // here we update the favorited and retweeted status
     // find the tweet in [homeTweets" that matches the given cell.tweetId.
     // Update that tweet's favorited or retweeted icons
@@ -132,4 +113,5 @@ extension HomeTableViewController : TweetTableViewCellDelegate {
     //performSegueWithIdentifier("replySegue", sender: self)
     // in prepare to segue pass in the given tweet id
   }
+  
 }
